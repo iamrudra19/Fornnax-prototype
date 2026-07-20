@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Custom palette matching design guidelines */
+  --color-fornnax-bg: #0C0E12;
+  --color-fornnax-card: #14171D;
+  --color-fornnax-border: #232833;
+  --color-fornnax-border-hover: #3a4152;
+  --color-fornnax-red: #E23A2E;
+  --color-fornnax-green: #2EBD85;
+  --color-fornnax-amber: #F5A623;
+  --color-fornnax-text-primary: #F5F7FA;
+  --color-fornnax-text-secondary: #8A93A6;
+}
+
+:root {
+  --bg-charcoal: #0C0E12;
+  --card-surface: #14171D;
+  --border-color: #232833;
+  --text-primary: #F5F7FA;
+  --text-secondary: #8A93A6;
+  --brand-red: #E23A2E;
+  --brand-green: #2EBD85;
+  --brand-amber: #F5A623;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-fornnax-bg);
+    color: var(--color-fornnax-text-primary);
+    font-family: var(--font-sans);
+  }
+}
+
+/* Editorial Aesthetic specific classes */
+.heading {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.grid-texture {
+  background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.sidebar-active {
+  border-left: 3px solid var(--brand-red);
+  background: linear-gradient(90deg, rgba(226, 58, 46, 0.1) 0%, transparent 100%);
+}
+
+/* Custom engineering grid texture background */
+.engineering-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(226, 58, 46, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 58, 46, 0.015) 1px, transparent 1px);
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0C0E12;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #232833;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E23A2E;
+}
+
+/* Micro-interaction classes */
+.card-hover-effect {
+  transition: all 150ms ease;
+}
+
+.card-hover-effect:hover {
+  transform: translateY(-2px);
+  border-color: rgba(226, 58, 46, 0.4);
+  box-shadow: 0 10px 20px -10px rgba(0,0,0,0.5);
+}
+
+/* Pulsing bullet */
+@keyframes signal-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+}
+
+.live-pulse {
+  animation: signal-pulse 2s infinite ease-in-out;
+}
+
+

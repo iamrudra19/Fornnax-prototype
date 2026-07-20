@@ -1,0 +1,6 @@
+{
+  "name": "FORNNAX Export Intelligence Hub",
+  "description": "An AI-powered export enquiry management and sales intelligence platform for industrial shredder and recycling equipment manufacturing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
