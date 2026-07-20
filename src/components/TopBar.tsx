@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Globe, User } from 'lucide-react';
+import { Search, Globe, User, Factory } from 'lucide-react';
 
 interface TopBarProps {
   searchQuery: string;
@@ -42,14 +42,24 @@ export default function TopBar({ searchQuery, setSearchQuery }: TopBarProps) {
   }, []);
 
   return (
-    <header id="top-bar-container" className="sticky top-0 w-full h-16 bg-fornnax-card border-b border-fornnax-border flex items-center justify-between px-6 z-20 shrink-0">
+    <header id="top-bar-container" className="sticky top-0 w-full h-16 bg-fornnax-card border-b border-fornnax-border flex items-center justify-between px-4 lg:px-6 z-20 shrink-0">
+      {/* Mobile-only compact logo */}
+      <div className="flex lg:hidden items-center space-x-2 mr-1">
+        <div className="w-7 h-7 rounded bg-fornnax-red flex items-center justify-center shadow-[0_0_10px_rgba(226,58,46,0.3)]">
+          <Factory className="w-4 h-4 text-white" />
+        </div>
+        <span className="font-display text-sm font-bold tracking-tight text-fornnax-text-primary leading-none">
+          FORNNAX
+        </span>
+      </div>
+
       {/* Global Search */}
-      <div className="relative w-80">
+      <div className="relative flex-1 max-w-[190px] sm:max-w-xs lg:w-80 mx-3 lg:mx-0">
         <Search className="absolute left-3 top-2.5 h-4 w-4 text-fornnax-text-secondary" />
         <input
           type="text"
           id="global-search-input"
-          placeholder="Search enquiries, specs, or agents..."
+          placeholder="Search..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full bg-fornnax-bg text-fornnax-text-primary pl-9 pr-4 py-2 rounded-[8px] border border-fornnax-border text-xs focus:outline-none focus:border-fornnax-red transition-colors font-sans placeholder-fornnax-text-secondary"
@@ -100,7 +110,7 @@ export default function TopBar({ searchQuery, setSearchQuery }: TopBarProps) {
 
         {/* User Profile */}
         <div className="flex items-center space-x-3">
-          <div className="text-right">
+          <div className="hidden sm:block text-right">
             <span className="text-xs font-medium text-fornnax-text-primary block font-sans">
               Fornnax Sales Team
             </span>

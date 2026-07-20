@@ -27,7 +27,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
   ];
 
   return (
-    <aside id="sidebar-container" className="fixed top-0 left-0 h-screen w-60 bg-fornnax-card border-r border-fornnax-border flex flex-col justify-between z-30">
+    <aside id="sidebar-container" className="fixed top-0 left-0 h-screen w-60 bg-fornnax-card border-r border-fornnax-border hidden lg:flex flex-col justify-between z-30">
       {/* Upper Logo Area */}
       <div>
         <div id="sidebar-header" className="p-5 border-b border-fornnax-border flex items-center space-x-3">

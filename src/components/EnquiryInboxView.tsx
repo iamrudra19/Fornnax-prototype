@@ -340,7 +340,7 @@ export default function EnquiryInboxView({
       {/* CORE PIPELINE TABLE */}
       <div className="bg-fornnax-card border border-fornnax-border rounded-[10px] overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+          <table className="w-full text-left border-collapse min-w-[760px]">
             <thead>
               <tr className="border-b border-fornnax-border bg-fornnax-bg/40 text-[10px] font-mono text-fornnax-text-secondary uppercase tracking-wider select-none">
                 <th className="py-3 px-4 w-28">Channel</th>

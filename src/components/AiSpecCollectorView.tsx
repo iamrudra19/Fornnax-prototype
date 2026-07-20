@@ -582,9 +582,9 @@ export default function AiSpecCollectorView({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[calc(100vh-220px)] min-h-[480px]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:h-[calc(100vh-220px)] lg:min-h-[480px]">
         {/* LEFT COLUMN: ACTIVE CHATS LIST (3 cols) */}
-        <div className="lg:col-span-3 bg-fornnax-card border border-fornnax-border rounded-[10px] p-3 flex flex-col justify-between overflow-hidden">
+        <div className="lg:col-span-3 h-[280px] lg:h-full bg-fornnax-card border border-fornnax-border rounded-[10px] p-3 flex flex-col justify-between overflow-hidden">
           <div className="space-y-3 flex-1 overflow-y-auto">
             <div className="text-[10px] font-mono text-fornnax-text-secondary uppercase tracking-widest border-b border-fornnax-border pb-2 px-1">
               Active Trade Chat Channels
@@ -659,7 +659,7 @@ export default function AiSpecCollectorView({
         </div>
 
         {/* CENTER COLUMN: WHATSAPP-STYLE CHAT THREAD (6 cols) */}
-        <div className="lg:col-span-6 bg-[#0E0F14] border border-fornnax-border rounded-[10px] flex flex-col justify-between overflow-hidden relative shadow-[inset_0_4px_30px_rgba(0,0,0,0.8)]">
+        <div className="lg:col-span-6 h-[500px] lg:h-full bg-[#0E0F14] border border-fornnax-border rounded-[10px] flex flex-col justify-between overflow-hidden relative shadow-[inset_0_4px_30px_rgba(0,0,0,0.8)]">
           {/* Wallpaper pattern background overlay */}
           <div className="absolute inset-0 opacity-[0.02] pointer-events-none mix-blend-color-dodge bg-[radial-gradient(#e23a2e_1px,transparent_1px)] [background-size:16px_16px]" />
 
@@ -828,7 +828,7 @@ export default function AiSpecCollectorView({
         </div>
 
         {/* RIGHT COLUMN: ENQUIRY COMPLETENESS CHECKLIST PANEL (3 cols) */}
-        <div className="lg:col-span-3 bg-fornnax-card border border-fornnax-border rounded-[10px] p-4 flex flex-col justify-between overflow-hidden">
+        <div className="lg:col-span-3 h-auto lg:h-full bg-fornnax-card border border-fornnax-border rounded-[10px] p-4 flex flex-col justify-between overflow-hidden">
           <div className="space-y-4 flex-1 overflow-y-auto">
             <div className="flex justify-between items-center border-b border-fornnax-border pb-2">
               <span className="text-[10px] font-mono text-fornnax-text-secondary uppercase tracking-widest">

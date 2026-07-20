@@ -1272,6 +1272,7 @@ export default function LeadFinderView({ onImportLead, setActiveTab }: LeadFinde
   const [toast, setToast] = useState<string | null>(null);
   const [keyword, setKeyword] = useState<string>('');
   const [wasRelaxed, setWasRelaxed] = useState<boolean>(false);
+  const [showMobileFilters, setShowMobileFilters] = useState<boolean>(false);
 
   const timersRef = useRef<number[]>([]);
 
@@ -1467,8 +1468,29 @@ export default function LeadFinderView({ onImportLead, setActiveTab }: LeadFinde
       {/* Workspace: Filters (left) + Results (right) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* ---- Filter sidebar ---- */}
-        <div className="lg:col-span-3 bg-fornnax-card border border-fornnax-border rounded-[10px] flex flex-col overflow-hidden">
-          <div className="px-4 py-3 border-b border-fornnax-border flex items-center justify-between">
+        <div className={`${showMobileFilters ? 'fixed inset-0 z-50 bg-fornnax-bg overflow-y-auto p-4 flex flex-col' : 'hidden lg:flex lg:col-span-3 bg-fornnax-card border border-fornnax-border rounded-[10px] overflow-hidden flex-col'}`}>
+          {/* Mobile Sticky Header */}
+          <div className="sticky top-0 bg-fornnax-bg border-b border-fornnax-border pb-3 mb-3 flex items-center justify-between z-10 lg:hidden shrink-0">
+            <span className="text-xs font-mono font-black text-white uppercase tracking-widest">LEAD FILTERS</span>
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={resetFilters}
+                disabled={isScraping}
+                className="flex items-center space-x-1 text-[9px] font-mono text-zinc-500 hover:text-white transition-colors"
+              >
+                <RotateCcw className="w-3 h-3" />
+                <span>RESET</span>
+              </button>
+              <button 
+                onClick={() => setShowMobileFilters(false)}
+                className="p-1 hover:bg-white/5 rounded-md text-zinc-400 hover:text-white transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          <div className="px-4 py-3 border-b border-fornnax-border flex items-center justify-between lg:flex hidden">
             <div className="flex items-center space-x-2">
               <Filter className="w-3.5 h-3.5 text-fornnax-red" />
               <span className="text-[10px] font-mono font-black text-white uppercase tracking-widest">Lead Filters</span>
@@ -1552,13 +1574,16 @@ export default function LeadFinderView({ onImportLead, setActiveTab }: LeadFinde
           </div>
 
           {/* Live match preview + CTA */}
-          <div className="p-4 border-t border-fornnax-border bg-zinc-950/60 space-y-3">
+          <div className="p-4 border-t border-fornnax-border bg-zinc-950/60 space-y-3 sticky bottom-0 z-10 lg:relative">
             <div className="flex items-center justify-between text-[10px] font-mono">
               <span className="text-zinc-500 uppercase tracking-wider">Matching companies</span>
               <span className="text-fornnax-green font-bold">{liveMatchCount}</span>
             </div>
             <button
-              onClick={handleFindLeads}
+              onClick={() => {
+                handleFindLeads();
+                setShowMobileFilters(false);
+              }}
               disabled={isScraping}
               className="w-full py-2.5 bg-fornnax-red hover:bg-fornnax-red/90 text-white rounded-[8px] text-xs font-bold transition-all duration-150 shadow-[0_0_15px_rgba(226,58,46,0.25)] flex items-center justify-center space-x-2 disabled:opacity-60"
             >
@@ -1578,7 +1603,20 @@ export default function LeadFinderView({ onImportLead, setActiveTab }: LeadFinde
         </div>
 
         {/* ---- Results area ---- */}
-        <div className="lg:col-span-9 space-y-4">
+        <div className="lg:col-span-9 space-y-4 w-full">
+          {/* Mobile-only Filter Trigger */}
+          <button
+            onClick={() => setShowMobileFilters(true)}
+            className="flex lg:hidden w-full items-center justify-between p-3.5 bg-fornnax-card border border-fornnax-border rounded-[10px] text-xs font-mono font-bold text-white hover:border-fornnax-red transition-colors"
+          >
+            <div className="flex items-center space-x-2">
+              <Filter className="w-4 h-4 text-fornnax-red" />
+              <span>Filters</span>
+            </div>
+            <span className="text-fornnax-green bg-fornnax-green/15 px-2 py-0.5 rounded-[4px] text-[10px]">
+              {liveMatchCount} matching
+            </span>
+          </button>
           {/* Idle empty state */}
           {phase === 'idle' && (
             <div className="bg-fornnax-card border border-fornnax-border rounded-[10px] py-20 px-8 flex flex-col items-center text-center space-y-4">
@@ -1677,90 +1715,92 @@ export default function LeadFinderView({ onImportLead, setActiveTab }: LeadFinde
                   <p className="text-[10px] font-mono text-zinc-600">Widen your criteria and run the scrape again.</p>
                 </div>
               ) : (
-                <div className="bg-fornnax-card border border-fornnax-border rounded-[10px] overflow-hidden">
-                  {/* Table header */}
-                  <div className="hidden md:grid grid-cols-12 gap-3 px-4 py-2.5 border-b border-fornnax-border bg-zinc-950/60 text-[9px] font-mono text-zinc-500 uppercase tracking-widest font-bold">
-                    <div className="col-span-4">Company</div>
-                    <div className="col-span-2">Segment</div>
-                    <div className="col-span-3">Buying Signal</div>
-                    <div className="col-span-1 text-right">Fit</div>
-                    <div className="col-span-2 text-right">Actions</div>
-                  </div>
+                <div className="overflow-x-auto w-full">
+                  <div className="bg-fornnax-card border border-fornnax-border rounded-[10px] overflow-hidden min-w-[720px]">
+                    {/* Table header */}
+                    <div className="grid grid-cols-12 gap-3 px-4 py-2.5 border-b border-fornnax-border bg-zinc-950/60 text-[9px] font-mono text-zinc-500 uppercase tracking-widest font-bold">
+                      <div className="col-span-4">Company</div>
+                      <div className="col-span-2">Segment</div>
+                      <div className="col-span-3">Buying Signal</div>
+                      <div className="col-span-1 text-right">Fit</div>
+                      <div className="col-span-2 text-right">Actions</div>
+                    </div>
 
-                  {visibleResults.map(rec => {
-                    const isImported = importedIds.includes(rec.id);
-                    return (
-                      <div
-                        key={rec.id}
-                        onClick={() => setSelectedLeadId(rec.id)}
-                        className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center px-4 py-3.5 border-b border-zinc-800/60 last:border-b-0 hover:bg-zinc-900/50 cursor-pointer transition-colors duration-150 group"
-                        style={{ animation: 'lfRowIn 0.3s ease both' }}
-                      >
-                        {/* Company */}
-                        <div className="md:col-span-4 min-w-0">
-                          <div className="flex items-center space-x-2 min-w-0">
-                            <span className="text-sm shrink-0">{rec.flag}</span>
-                            <span className="text-xs font-semibold text-white truncate group-hover:text-fornnax-red transition-colors">
-                              {rec.companyName}
+                    {visibleResults.map(rec => {
+                      const isImported = importedIds.includes(rec.id);
+                      return (
+                        <div
+                          key={rec.id}
+                          onClick={() => setSelectedLeadId(rec.id)}
+                          className="grid grid-cols-12 gap-3 items-center px-4 py-3.5 border-b border-zinc-800/60 last:border-b-0 hover:bg-zinc-900/50 cursor-pointer transition-colors duration-150 group"
+                          style={{ animation: 'lfRowIn 0.3s ease both' }}
+                        >
+                          {/* Company */}
+                          <div className="col-span-4 min-w-0">
+                            <div className="flex items-center space-x-2 min-w-0">
+                              <span className="text-sm shrink-0">{rec.flag}</span>
+                              <span className="text-xs font-semibold text-white truncate group-hover:text-fornnax-red transition-colors">
+                                {rec.companyName}
+                              </span>
+                            </div>
+                            <div className="flex items-center space-x-1.5 mt-1 ml-6">
+                              <span className="text-[9px] font-mono text-zinc-500">{rec.country}</span>
+                              <span className="text-[9px] font-mono text-zinc-600">· {rec.dmRole}</span>
+                              {rec.existingCustomer && (
+                                <span className="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded border bg-fornnax-green/10 text-fornnax-green border-fornnax-green/20 uppercase tracking-wider">
+                                  Fornnax Customer
+                                </span>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Segment */}
+                          <div className="col-span-2">
+                            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded border bg-zinc-900 text-zinc-300 border-zinc-700/60 uppercase tracking-wide inline-block">
+                              {rec.segment}
                             </span>
                           </div>
-                          <div className="flex items-center space-x-1.5 mt-1 ml-6">
-                            <span className="text-[9px] font-mono text-zinc-500">{rec.country}</span>
-                            <span className="text-[9px] font-mono text-zinc-600">· {rec.dmRole}</span>
-                            {rec.existingCustomer && (
-                              <span className="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded border bg-fornnax-green/10 text-fornnax-green border-fornnax-green/20 uppercase tracking-wider">
-                                Fornnax Customer
-                              </span>
-                            )}
+
+                          {/* Signal */}
+                          <div className="col-span-3 min-w-0">
+                            <span className="text-[9px] font-mono font-bold text-fornnax-amber uppercase tracking-wider block">{rec.stage}</span>
+                            <span className="text-[10px] text-zinc-400 truncate block mt-0.5">{rec.headline}</span>
+                          </div>
+
+                          {/* Fit */}
+                          <div className="col-span-1 text-right">
+                            <span className="text-xs font-mono font-bold text-fornnax-green">{rec.fitScore}</span>
+                            <div className="w-full bg-zinc-800 rounded-full h-0.5 mt-1">
+                              <div className="bg-fornnax-green h-full rounded-full" style={{ width: `${rec.fitScore}%` }} />
+                            </div>
+                          </div>
+
+                          {/* Actions */}
+                          <div className="col-span-2 flex justify-end items-center space-x-1.5">
+                            <button
+                              onClick={e => {
+                                e.stopPropagation();
+                                setSelectedLeadId(rec.id);
+                              }}
+                              className="p-1 px-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded text-[9px] font-mono text-zinc-300 hover:text-white transition-all"
+                            >
+                              Research
+                            </button>
+                            <button
+                              onClick={e => {
+                                e.stopPropagation();
+                                handleDraftOutreach(rec);
+                              }}
+                              className="p-1 px-2.5 bg-fornnax-red hover:bg-fornnax-red/90 text-white rounded text-[9px] font-mono font-bold transition-all flex items-center space-x-1"
+                            >
+                              <Sparkles className="w-2.5 h-2.5" />
+                              <span>{isImported ? 'Drafted' : 'Draft Outreach'}</span>
+                            </button>
                           </div>
                         </div>
-
-                        {/* Segment */}
-                        <div className="md:col-span-2">
-                          <span className="text-[9px] font-mono px-1.5 py-0.5 rounded border bg-zinc-900 text-zinc-300 border-zinc-700/60 uppercase tracking-wide inline-block">
-                            {rec.segment}
-                          </span>
-                        </div>
-
-                        {/* Signal */}
-                        <div className="md:col-span-3 min-w-0">
-                          <span className="text-[9px] font-mono font-bold text-fornnax-amber uppercase tracking-wider block">{rec.stage}</span>
-                          <span className="text-[10px] text-zinc-400 truncate block mt-0.5">{rec.headline}</span>
-                        </div>
-
-                        {/* Fit */}
-                        <div className="md:col-span-1 md:text-right">
-                          <span className="text-xs font-mono font-bold text-fornnax-green">{rec.fitScore}</span>
-                          <div className="w-full md:w-10 md:ml-auto bg-zinc-800 rounded-full h-0.5 mt-1">
-                            <div className="bg-fornnax-green h-full rounded-full" style={{ width: `${rec.fitScore}%` }} />
-                          </div>
-                        </div>
-
-                        {/* Actions */}
-                        <div className="md:col-span-2 flex md:justify-end items-center space-x-1.5">
-                          <button
-                            onClick={e => {
-                              e.stopPropagation();
-                              setSelectedLeadId(rec.id);
-                            }}
-                            className="p-1 px-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded text-[9px] font-mono text-zinc-300 hover:text-white transition-all"
-                          >
-                            Research
-                          </button>
-                          <button
-                            onClick={e => {
-                              e.stopPropagation();
-                              handleDraftOutreach(rec);
-                            }}
-                            className="p-1 px-2.5 bg-fornnax-red hover:bg-fornnax-red/90 text-white rounded text-[9px] font-mono font-bold transition-all flex items-center space-x-1"
-                          >
-                            <Sparkles className="w-2.5 h-2.5" />
-                            <span>{isImported ? 'Drafted' : 'Draft Outreach'}</span>
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
               )}
             </>
@@ -1773,7 +1813,7 @@ export default function LeadFinderView({ onImportLead, setActiveTab }: LeadFinde
         <>
           <div className="fixed inset-0 bg-black/60 z-40" onClick={() => setSelectedLeadId(null)} />
           <div
-            className="fixed inset-y-0 right-0 z-50 w-full max-w-[620px] bg-[#11141A] border-l-2 border-fornnax-border shadow-2xl overflow-y-auto flex flex-col"
+            className="fixed inset-y-0 right-0 z-50 w-full lg:max-w-[620px] bg-[#11141A] border-l-2 border-fornnax-border shadow-2xl overflow-y-auto flex flex-col"
             style={{ animation: 'lfDrawerIn 0.25s ease both' }}
           >
             <div className="h-1.5 bg-gradient-to-r from-fornnax-red via-fornnax-amber to-fornnax-green shrink-0" />

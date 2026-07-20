@@ -262,7 +262,7 @@ export default function EnquiryBriefsView({
       {/* Main Grid View */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left column: List of generated briefs (buyer, flag, score badge, date) */}
-        <div className="lg:col-span-4 space-y-3 max-h-[750px] overflow-y-auto pr-1">
+        <div className="lg:col-span-4 space-y-3 max-h-[280px] lg:max-h-[750px] overflow-y-auto pr-1">
           <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest px-1 font-bold">
             Available Dossiers ({enquiries.length})
           </div>

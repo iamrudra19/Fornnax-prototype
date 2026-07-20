@@ -380,7 +380,7 @@ www.fornnaxtools.com`);
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           
           {/* Panel 1: Lead Selector (3 Cols) */}
-          <div className="lg:col-span-3 bg-fornnax-card/95 border border-fornnax-border rounded-[10px] p-4 flex flex-col justify-between max-h-[720px] overflow-y-auto">
+          <div className="lg:col-span-3 bg-fornnax-card/95 border border-fornnax-border rounded-[10px] p-4 flex flex-col justify-between max-h-[280px] lg:max-h-[720px] overflow-y-auto">
             <div className="space-y-4">
               <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-black block border-b border-fornnax-border pb-2">
                 Active Importers
@@ -558,7 +558,7 @@ www.fornnaxtools.com`);
           </div>
 
           {/* Panel 3: Sequence Timeline (3 Cols) */}
-          <div className="lg:col-span-3 bg-fornnax-card/95 border border-fornnax-border rounded-[10px] p-4 flex flex-col justify-between max-h-[720px] overflow-y-auto">
+          <div className="lg:col-span-3 bg-fornnax-card/95 border border-fornnax-border rounded-[10px] p-4 flex flex-col justify-between max-h-[350px] lg:max-h-[720px] overflow-y-auto">
             <div className="space-y-4">
               <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-black block border-b border-fornnax-border pb-2">
                 Drip Sequence Timeline

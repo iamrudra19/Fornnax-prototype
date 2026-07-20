@@ -5,6 +5,7 @@
 
 import React, { useState, Component, ErrorInfo, ReactNode } from 'react';
 import Sidebar from './components/Sidebar';
+import MobileNav from './components/MobileNav';
 import TopBar from './components/TopBar';
 import DashboardView from './components/DashboardView';
 import EnquiryInboxView from './components/EnquiryInboxView';
@@ -402,14 +403,15 @@ Procurement Team | ${lead.companyName}`,
     <div className="h-screen bg-fornnax-bg grid-texture text-fornnax-text-primary relative overflow-hidden flex">
       {/* 240px Fixed Sidebar - Use handleTabChange for smooth skeletons */}
       <Sidebar activeTab={activeTab} setActiveTab={handleTabChange} />
+      <MobileNav activeTab={activeTab} setActiveTab={handleTabChange} />
 
       {/* Main Core View Area */}
-      <div className="flex-1 flex flex-col min-w-0 pl-60 h-screen overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 pl-0 lg:pl-60 h-screen overflow-hidden">
         {/* Top Header Bar */}
         <TopBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
         {/* Dynamic Route Screen Layout */}
-        <main className="flex-1 p-6 overflow-y-auto max-w-7xl w-full mx-auto pb-12">
+        <main className="flex-1 p-4 lg:p-6 overflow-y-auto max-w-7xl w-full mx-auto pb-24 lg:pb-12">
           {/* Slide fade view effect wrapper */}
           <div className="animate-[fadeIn_0.2s_ease-out]">
             <ErrorBoundary>

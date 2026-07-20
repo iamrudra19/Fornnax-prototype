@@ -363,7 +363,7 @@ export default function AgentOrchestrationView({ setActiveTab }: AgentOrchestrat
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         
         {/* Left/Center: Orchestration Blueprint Diagram (8 Cols) */}
-        <div className="lg:col-span-8 bg-[#0C0F14] border-2 border-fornnax-border rounded-[10px] p-6 relative flex flex-col justify-between min-h-[580px] overflow-hidden">
+        <div className="lg:col-span-8 bg-[#0C0F14] border-2 border-fornnax-border rounded-[10px] p-4 lg:p-6 relative flex flex-col justify-between min-h-none lg:min-h-[580px] overflow-hidden">
           
           {/* Engineering grid blueprint watermark background */}
           <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none" />
@@ -592,7 +592,7 @@ export default function AgentOrchestrationView({ setActiveTab }: AgentOrchestrat
         </div>
 
         {/* Right: Live Activity Log Stream (4 Cols) */}
-        <div className="lg:col-span-4 flex flex-col h-[600px]">
+        <div className="lg:col-span-4 flex flex-col h-[350px] lg:h-[600px]">
           <h3 className="font-display text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3.5 flex items-center space-x-2">
             <Terminal className="w-4 h-4 text-fornnax-red" />
             <span>Telemetry Activity Log</span>

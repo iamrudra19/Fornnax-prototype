@@ -160,10 +160,10 @@ export default function DashboardView({ enquiries, onSelectEnquiry, setActiveTab
           </p>
         </div>
 
-        <div className="flex space-x-3">
+        <div className="flex flex-wrap gap-2.5 w-full sm:w-auto">
           <button 
             onClick={() => setActiveTab('inbox')}
-            className="px-4 py-2 bg-fornnax-card hover:bg-white/[0.02] border border-fornnax-border rounded-[8px] text-xs font-semibold text-fornnax-text-primary transition-all duration-150 flex items-center space-x-2"
+            className="flex-1 sm:flex-initial px-3 sm:px-4 py-2 bg-fornnax-card hover:bg-white/[0.02] border border-fornnax-border rounded-[8px] text-xs font-semibold text-fornnax-text-primary transition-all duration-150 flex items-center justify-center space-x-2"
           >
             <span>Access Inbox</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -171,10 +171,10 @@ export default function DashboardView({ enquiries, onSelectEnquiry, setActiveTab
           
           <button 
             onClick={() => setActiveTab('orchestration')}
-            className="px-4 py-2 bg-fornnax-red hover:bg-fornnax-red/90 text-white rounded-[8px] text-xs font-semibold transition-all duration-150 flex items-center space-x-2 shadow-[0_0_15px_rgba(226,58,46,0.2)]"
+            className="flex-1 sm:flex-initial px-3 sm:px-4 py-2 bg-fornnax-red hover:bg-fornnax-red/90 text-white rounded-[8px] text-xs font-semibold transition-all duration-150 flex items-center justify-center space-x-2 shadow-[0_0_15px_rgba(226,58,46,0.2)]"
           >
-            <Cpu className="w-3.5 h-3.5 animate-pulse" />
-            <span>System Status: 5/5 Daemons</span>
+            <Cpu className="w-3.5 h-3.5 animate-pulse shrink-0" />
+            <span className="truncate">System Status: 5/5 Daemons</span>
           </button>
         </div>
       </div>
